@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
-export default function Home() {
+export default function Materials() {
   const searchParams = useSearchParams();
 
   const id = searchParams.get('id');
@@ -19,16 +19,16 @@ export default function Home() {
     <main className='max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen'>
       <div className='flex space-x-4 mb-8'>
         <a
+          href={`/?id=${id}`}
+          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
+        >
+          Main
+        </a>
+        <a
           href={`/tasks?id=${id}`}
           className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
         >
           Tasks
-        </a>
-        <a
-          href={`/materials?id=${id}`}
-          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
-        >
-          Materials
         </a>
       </div>
 
