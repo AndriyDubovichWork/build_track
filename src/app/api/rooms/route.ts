@@ -1,11 +1,11 @@
-// app/api/tasks/route.ts
-import { createTask, getTasksByRoom } from '@/app/lib/DB/db';
+// app/api/rooms/route.ts
+import { createRoom, getRoomsByCompany } from '@/app/lib/DB/db';
 import { NextResponse } from 'next/server';
 
-// POST /api/tasks - Create a new task
+// POST /api/rooms - Create a new room
 export async function POST(request: Request) {
-  const taskData = await request.json();
-  const result = await createTask(taskData);
+  const roomData = await request.json();
+  const result = await createRoom(roomData);
 
   if ('error' in result) {
     return NextResponse.json({ error: result.error }, { status: 400 });
@@ -14,19 +14,19 @@ export async function POST(request: Request) {
   return NextResponse.json(result, { status: 201 });
 }
 
-// GET /api/tasks?roomId=123 - Get tasks by room
+// GET /api/rooms?companyId=123 - Get rooms by company
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const roomId = searchParams.get('roomId');
+  const companyId = searchParams.get('companyId');
 
-  if (!roomId) {
+  if (!companyId) {
     return NextResponse.json(
-      { error: 'roomId query parameter is required' },
+      { error: 'companyId query parameter is required' },
       { status: 400 }
     );
   }
 
-  const result = await getTasksByRoom(parseInt(roomId));
+  const result = await getRoomsByCompany(parseInt(companyId));
 
   if ('error' in result) {
     return NextResponse.json({ error: result.error }, { status: 500 });

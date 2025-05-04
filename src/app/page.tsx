@@ -16,6 +16,7 @@ export default function MainPage() {
     start_date: '2023-01-01',
     deadline_date: '2023-12-31',
   };
+
   return (
     <>
       <NavButtons id={id} activeTab='main' />
