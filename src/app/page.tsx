@@ -1,74 +1,52 @@
 'use client';
-
 import { useSearchParams } from 'next/navigation';
+import { DetailCard } from './Components/Layout/DetailCard';
+import { DetailSection } from './Components/Layout/DetailSection';
+import { NavButtons } from './Components/Layout/NavButtons';
+import { Project } from './types';
 
-export default function Home() {
+export default function MainPage() {
   const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '1';
 
-  const id = searchParams.get('id');
-
-  const resExample = {
+  const project: Project = {
     id: id,
-    name: 'Кімната 1',
-    location: 'Київ',
-    start_date: '2025-05-01',
-    deadline_date: '2025-06-15',
+    name: 'house Project',
+    location: 'Kyiv',
+    start_date: '2023-01-01',
+    deadline_date: '2023-12-31',
   };
-
   return (
-    <main className='max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen'>
-      <div className='flex space-x-4 mb-8'>
-        <a
-          href={`/tasks?id=${id}`}
-          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
-        >
-          Tasks
-        </a>
-        <a
-          href={`/materials?id=${id}`}
-          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
-        >
-          Materials
-        </a>
-      </div>
-
-      <div className='bg-white rounded-xl shadow-md p-6 space-y-4'>
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>ID</span>
-          <h1 className='text-2xl font-bold text-gray-800'>{resExample.id}</h1>
-        </div>
-
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>Name</span>
-          <h1 className='text-3xl font-bold text-blue-600'>
-            {resExample.name}
-          </h1>
-        </div>
-
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>Location</span>
-          <h3 className='text-xl font-semibold text-gray-700'>
-            {resExample.location}
-          </h3>
-        </div>
-
+    <>
+      <NavButtons id={id} activeTab='main' />
+      <DetailCard>
+        <DetailSection label='ID' value={project.id} />
+        <DetailSection
+          label='Name'
+          value={project.name}
+          valueSize='3xl'
+          valueColor='blue-600'
+        />
+        <DetailSection
+          label='Location'
+          value={project.location}
+          valueSize='xl'
+          valueColor='gray-700'
+        />
         <div className='grid grid-cols-2 gap-4'>
-          <div>
-            <span className='text-sm font-medium text-gray-500'>
-              Start Date
-            </span>
-            <h4 className='text-lg font-medium text-gray-800'>
-              {resExample.start_date}
-            </h4>
-          </div>
-          <div>
-            <span className='text-sm font-medium text-gray-500'>Deadline</span>
-            <h4 className='text-lg font-medium text-red-600'>
-              {resExample.deadline_date}
-            </h4>
-          </div>
+          <DetailSection
+            label='Start Date'
+            value={project.start_date}
+            valueSize='lg'
+          />
+          <DetailSection
+            label='Deadline'
+            value={project.deadline_date}
+            valueSize='lg'
+            valueColor='red-600'
+          />
         </div>
-      </div>
-    </main>
+      </DetailCard>
+    </>
   );
 }

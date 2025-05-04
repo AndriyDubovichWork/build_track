@@ -1,74 +1,74 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { NavButtons } from '../Components/Layout/NavButtons';
+import { DetailCard } from '../Components/Layout/DetailCard';
+import { DetailSection } from '../Components/Layout/DetailSection';
 
-export default function Materials() {
+export default function MaterialsPage() {
   const searchParams = useSearchParams();
+  const id = searchParams.get('id') || '1';
 
-  const id = searchParams.get('id');
-
-  const resExample = {
-    id: id,
-    name: 'Кімната 1',
-    location: 'Київ',
-    start_date: '2025-05-01',
-    deadline_date: '2025-06-15',
-  };
+  const materials = [
+    {
+      id: 1,
+      name: 'Цемент',
+      unit_price: 150.0,
+      quantity: 10,
+      total_price: 1500.0,
+      comment: 'Для підлоги',
+    },
+    {
+      id: 2,
+      name: 'Пісок',
+      unit_price: 50.0,
+      quantity: 20,
+      total_price: 1000.0,
+      comment: 'Для розчину',
+    },
+  ];
 
   return (
-    <main className='max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen'>
-      <div className='flex space-x-4 mb-8'>
-        <a
-          href={`/?id=${id}`}
-          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
-        >
-          Main
-        </a>
-        <a
-          href={`/tasks?id=${id}`}
-          className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition-colors'
-        >
-          Tasks
-        </a>
+    <>
+      <NavButtons id={id} activeTab='materials' />
+
+      <h1 className='text-3xl font-bold text-gray-800 mb-6'>
+        Materials for Project: <span className='text-blue-600'>{id}</span>
+      </h1>
+
+      <div className='space-y-4'>
+        {materials.map((material) => (
+          <DetailCard key={material.id}>
+            <DetailSection
+              label='Material Name'
+              value={material.name}
+              valueSize='xl'
+              valueColor='blue-600'
+            />
+
+            <div className='grid grid-cols-3 gap-4 mt-4'>
+              <DetailSection
+                label='Unit Price'
+                value={`${material.unit_price} ₴`}
+                valueSize='lg'
+              />
+              <DetailSection
+                label='Quantity'
+                value={material.quantity}
+                valueSize='lg'
+              />
+              <DetailSection
+                label='Total Price'
+                value={`${material.total_price} ₴`}
+              />
+            </div>
+
+            {material.comment && (
+              <DetailSection label='Comment' value={material.comment} />
+            )}
+          </DetailCard>
+        ))}
       </div>
-
-      <div className='bg-white rounded-xl shadow-md p-6 space-y-4'>
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>ID</span>
-          <h1 className='text-2xl font-bold text-gray-800'>{resExample.id}</h1>
-        </div>
-
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>Name</span>
-          <h1 className='text-3xl font-bold text-blue-600'>
-            {resExample.name}
-          </h1>
-        </div>
-
-        <div className='border-b pb-2'>
-          <span className='text-sm font-medium text-gray-500'>Location</span>
-          <h3 className='text-xl font-semibold text-gray-700'>
-            {resExample.location}
-          </h3>
-        </div>
-
-        <div className='grid grid-cols-2 gap-4'>
-          <div>
-            <span className='text-sm font-medium text-gray-500'>
-              Start Date
-            </span>
-            <h4 className='text-lg font-medium text-gray-800'>
-              {resExample.start_date}
-            </h4>
-          </div>
-          <div>
-            <span className='text-sm font-medium text-gray-500'>Deadline</span>
-            <h4 className='text-lg font-medium text-red-600'>
-              {resExample.deadline_date}
-            </h4>
-          </div>
-        </div>
-      </div>
-    </main>
+    </>
   );
 }

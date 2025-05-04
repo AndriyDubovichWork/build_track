@@ -4,7 +4,7 @@ export function GET() {
   // request: Request
   // const url = new URL(request.url);
   // const searchParams = new URLSearchParams(url.search);
-  // const id = searchParams.get('id');
+  // const id =  searchParams.get('id') || 1;
 
   const MaterialExample = [
     {
