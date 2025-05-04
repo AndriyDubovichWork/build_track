@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 // GET /api/users/[id] - Get user by ID
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const userId = parseInt(params.id);

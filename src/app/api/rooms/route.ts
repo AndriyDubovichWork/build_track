@@ -3,7 +3,7 @@ import { createRoom, getRoomsByCompany } from '@/app/lib/DB/db';
 import { NextResponse } from 'next/server';
 
 // POST /api/rooms - Create a new room
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const roomData = await request.json();
   const result = await createRoom(roomData);
 
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 }
 
 // GET /api/rooms?companyId=123 - Get rooms by company
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const companyId = searchParams.get('companyId');
 

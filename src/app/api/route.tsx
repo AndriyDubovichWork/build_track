@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 // import { initializeDatabase } from '../lib/DB/initDb';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const id = searchParams.get('id') || 1;

@@ -3,7 +3,7 @@ import { createTask, getTasksByRoom } from '@/app/lib/DB/db';
 import { NextResponse } from 'next/server';
 
 // POST /api/tasks - Create a new task
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const taskData = await request.json();
   const result = await createTask(taskData);
 
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 }
 
 // GET /api/tasks?roomId=123 - Get tasks by room
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const roomId = searchParams.get('roomId');
 

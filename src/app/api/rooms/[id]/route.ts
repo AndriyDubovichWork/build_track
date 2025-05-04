@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 // GET /api/rooms/[id] - Get room details with company, user and tasks
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const roomId = parseInt(params.id);

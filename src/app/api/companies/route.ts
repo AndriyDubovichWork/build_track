@@ -14,7 +14,7 @@ export async function GET() {
 }
 
 // POST /api/companies - Create a new company
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const companyData = await request.json();
   const result = await createCompany(companyData);
 

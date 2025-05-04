@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export function GET() {
-  // request: Request
+  // request: NextRequest
   // const url = new URL(request.url);
   // const searchParams = new URLSearchParams(url.search);
   // const id =  searchParams.get('id') || 1;

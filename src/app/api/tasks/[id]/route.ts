@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 // PATCH /api/tasks/[id] - Update task status
 export async function PATCH(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const taskId = parseInt(params.id);

@@ -3,7 +3,7 @@ import { createUser } from '@/app/lib/DB/db';
 import { NextResponse } from 'next/server';
 
 // POST /api/users - Create a new user
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const userData = await request.json();
   const result = await createUser(userData);
 
