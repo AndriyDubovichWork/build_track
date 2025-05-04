@@ -6,7 +6,15 @@ export async function GET(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  const companyId = parseInt(context.params.id);
+  return getCompanyHandler(context.params.id);
+}
+
+async function getCompanyHandler(id: string) {
+  const companyId = parseInt(id);
+  if (isNaN(companyId)) {
+    return NextResponse.json({ error: 'Invalid company ID' }, { status: 400 });
+  }
+
   const company = await getCompanyById(companyId);
 
   if (!company) {
