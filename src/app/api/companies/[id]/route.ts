@@ -2,14 +2,25 @@
 import { getCompanyById } from '@/app/lib/DB/db';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(
+export default async function handler(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  return getCompanyHandler(context.params.id);
+  const method = request.method;
+
+  switch (method) {
+    case 'GET':
+      return handleGetCompany(context.params.id);
+
+    default:
+      return NextResponse.json(
+        { error: `Method ${method} not allowed` },
+        { status: 405 }
+      );
+  }
 }
 
-async function getCompanyHandler(id: string) {
+async function handleGetCompany(id: string) {
   const companyId = parseInt(id);
   if (isNaN(companyId)) {
     return NextResponse.json({ error: 'Invalid company ID' }, { status: 400 });
