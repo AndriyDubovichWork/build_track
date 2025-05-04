@@ -1,6 +1,6 @@
 // app/api/tasks/route.ts
 import { createTask, getTasksByRoom } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // POST /api/tasks - Create a new task
 export async function POST(request: NextRequest) {

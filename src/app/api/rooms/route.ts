@@ -1,6 +1,6 @@
 // app/api/rooms/route.ts
 import { createRoom, getRoomsByCompany } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // POST /api/rooms - Create a new room
 export async function POST(request: NextRequest) {

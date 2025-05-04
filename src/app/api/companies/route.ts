@@ -1,6 +1,6 @@
 // app/api/companies/route.ts
 import { createCompany, getAllCompanies } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // GET /api/companies - Get all companies
 export async function GET() {

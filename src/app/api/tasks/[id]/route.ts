@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // PATCH /api/tasks/[id] - Update task status
 export async function PATCH(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   // Await params before accessing
   const { id } = await context.params;

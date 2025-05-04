@@ -4,9 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  // Directly access params (no await needed)
   const { id } = await context.params;
+
   const companyId = parseInt(id);
   if (isNaN(companyId)) {
     return NextResponse.json({ error: 'Invalid company ID' }, { status: 400 });

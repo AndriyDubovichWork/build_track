@@ -1,6 +1,6 @@
 // app/api/users/route.ts
 import { createUser } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // POST /api/users - Create a new user
 export async function POST(request: NextRequest) {
