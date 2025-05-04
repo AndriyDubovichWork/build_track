@@ -1,13 +1,20 @@
-// app/api/rooms/[id]/route.ts
+// src/app/api/rooms/[id]/route.ts
 import { getRoomWithDetails } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-// GET /api/rooms/[id] - Get room details with company, user and tasks
+// GET /api/rooms/[id] - Get room details with company, user, and tasks
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const roomId = parseInt(params.id);
+  // Await params before accessing them
+  const { id } = await context.params;
+
+  const roomId = parseInt(id);
+  if (isNaN(roomId)) {
+    return NextResponse.json({ error: 'Invalid room ID' }, { status: 400 });
+  }
+
   const result = await getRoomWithDetails(roomId);
 
   if (!result) {

@@ -1,13 +1,16 @@
-// app/api/tasks/[id]/route.ts
+// src/app/api/tasks/[id]/route.ts
 import { updateTaskStatus } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // PATCH /api/tasks/[id] - Update task status
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const taskId = parseInt(params.id);
+  // Await params before accessing
+  const { id } = await context.params;
+
+  const taskId = parseInt(id);
   const { status } = await request.json();
 
   if (!status || !['done', 'in process'].includes(status)) {

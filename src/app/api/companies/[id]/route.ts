@@ -1,13 +1,13 @@
-// app/api/companies/[id]/route.ts
+// src/app/api/companies/[id]/route.ts
 import { getCompanyById } from '@/app/lib/DB/db';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Handle GET request for /api/companies/[id]
 export async function GET(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  const companyId = parseInt(context.params.id);
+  const { id } = await context.params;
+  const companyId = parseInt(id);
   if (isNaN(companyId)) {
     return NextResponse.json({ error: 'Invalid company ID' }, { status: 400 });
   }

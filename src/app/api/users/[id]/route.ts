@@ -1,13 +1,16 @@
-// app/api/users/[id]/route.ts
+// src/app/api/users/[id]/route.ts
 import { getUserById } from '@/app/lib/DB/db';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // GET /api/users/[id] - Get user by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const userId = parseInt(params.id);
+  // Await params before accessing
+  const { id } = await context.params;
+
+  const userId = parseInt(id);
   const user = await getUserById(userId);
 
   if (!user) {
