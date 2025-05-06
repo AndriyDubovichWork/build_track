@@ -3,13 +3,13 @@
 import { TabType } from '@/app/types';
 
 interface NavButtonsProps {
-  id: string;
   activeTab: TabType;
 }
 
-export const NavButtons = ({ id, activeTab }: NavButtonsProps) => {
+export const NavButtons = ({ activeTab }: NavButtonsProps) => {
   const tabs = [
     { name: 'Main', path: '/', tab: 'main' as const },
+    { name: 'Companies', path: '/companies', tab: 'companies' as const },
     { name: 'Tasks', path: '/tasks', tab: 'tasks' as const },
     { name: 'Materials', path: '/materials', tab: 'materials' as const },
   ];
@@ -19,11 +19,11 @@ export const NavButtons = ({ id, activeTab }: NavButtonsProps) => {
       {tabs.map((tab) => (
         <a
           key={tab.name}
-          href={`${tab.path}?id=${id}`}
+          href={`${tab.path}`}
           className={`px-4 py-2 rounded-lg transition-colors ${
             activeTab === tab.tab
-              ? 'bg-green-600 text-white'
-              : 'bg-blue-500 text-white hover:bg-green-600'
+              ? 'bg-orange-600 text-white hover:bg-orange-800'
+              : 'bg-orange-400 text-white hover:bg-orange-500'
           }`}
         >
           {tab.name}

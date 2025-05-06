@@ -2,7 +2,7 @@
 import { ReactNode } from 'react';
 
 type TextSize = 'lg' | 'xl' | '2xl' | '3xl';
-type TextColor = 'gray-700' | 'gray-800' | 'blue-600' | 'red-600';
+type TextColor = 'gray-700' | 'gray-800' | 'red-600' | 'orange-500';
 
 interface DetailSectionProps {
   label: string;

@@ -19,14 +19,14 @@ export default function MainPage() {
 
   return (
     <>
-      <NavButtons id={id} activeTab='main' />
+      <NavButtons activeTab='main' />
       <DetailCard>
         <DetailSection label='ID' value={project.id} />
         <DetailSection
           label='Name'
           value={project.name}
           valueSize='3xl'
-          valueColor='blue-600'
+          valueColor='orange-500'
         />
         <DetailSection
           label='Location'

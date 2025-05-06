@@ -1,65 +1,50 @@
 'use client';
-
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { NavButtons } from '../Components/Layout/NavButtons';
+import { useSearchParams } from 'next/navigation';
+import { Task } from '../types';
 import { TaskCard } from '../Components/Layout/TaskCard';
+import { TaskCardSkeleton } from '../Components/SkeletonLoaders/TaskCardSkeleton';
+import tasksByRoomId from '../APIRequests/tasksByRoomId';
 
 export default function TasksPage() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id') || '1';
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const tasks = [
-    {
-      id: 1,
-      name: 'Укладання плитки',
-      status: 'done' as const,
-      description: 'Плитка в ванній кімнаті',
-      photos: [
-        { id: '1', url: 'url1.jpg' },
-        { id: '2', url: 'url2.jpg' },
-      ],
-      comments: [
-        {
-          id: '1',
-          user: 'Іван',
-          text: 'Зроблено!',
-          created_at: '2025-05-02 10:12',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Поклейка шпалер',
-      status: 'done' as const,
-      description: 'Шпалери в коридорі',
-      photos: [
-        { id: '3', url: 'url1.jpg' },
-        { id: '4', url: 'url2.jpg' },
-      ],
-      comments: [
-        {
-          id: '2',
-          user: 'Іван',
-          text: 'Зроблено!',
-          created_at: '2025-05-02 12:12',
-        },
-      ],
-    },
-  ];
+  const searchParams = useSearchParams();
+  const companyId = searchParams.get('roomId') || '1';
+
+  useEffect(() => {
+    setIsLoading(true);
+    tasksByRoomId(parseInt(companyId))
+      .then(({ data }) => {
+        setTasks(data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [companyId]);
 
   return (
     <>
-      <NavButtons id={id} activeTab='tasks' />
+      <NavButtons activeTab='rooms' />
+      <h1 className='text-3xl font-bold text-gray-800 mb-6'>Tasks List:</h1>
 
-      <h1 className='text-3xl font-bold text-gray-800 mb-6'>
-        Tasks for Project: <span className='text-blue-600'>{id}</span>
-      </h1>
-
-      <div className='space-y-4'>
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className='space-y-4'>
+          {[...Array(3)].map((_, index) => (
+            <TaskCardSkeleton key={index} />
+          ))}
+        </div>
+      ) : tasks.length === 0 ? (
+        <h1 className='text-2xl font-bold text-gray-800 mb-6'>No tasks</h1>
+      ) : (
+        <div className='space-y-4'>
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

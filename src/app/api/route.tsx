@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 // import { initializeDatabase } from '../lib/DB/initDb';
+import generateMockData from './../lib/generateMockData';
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -13,6 +14,6 @@ export async function GET(request: NextRequest) {
     start_date: '2025-05-01',
     deadline_date: '2025-06-15',
   };
-
+  generateMockData();
   return NextResponse.json(resExample);
 }

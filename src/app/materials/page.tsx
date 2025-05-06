@@ -30,10 +30,10 @@ export default function MaterialsPage() {
 
   return (
     <>
-      <NavButtons id={id} activeTab='materials' />
+      <NavButtons activeTab='materials' />
 
       <h1 className='text-3xl font-bold text-gray-800 mb-6'>
-        Materials for Project: <span className='text-blue-600'>{id}</span>
+        Materials for Project: <span className='text-orange-500'>{id}</span>
       </h1>
 
       <div className='space-y-4'>
@@ -43,7 +43,7 @@ export default function MaterialsPage() {
               label='Material Name'
               value={material.name}
               valueSize='xl'
-              valueColor='blue-600'
+              valueColor='orange-500'
             />
 
             <div className='grid grid-cols-3 gap-4 mt-4'>
