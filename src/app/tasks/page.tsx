@@ -12,22 +12,23 @@ export default function TasksPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
-  const companyId = searchParams.get('roomId') || '1';
+  const roomId = searchParams.get('roomId') || '1';
+  const companyId = searchParams.get('companyId') || '1';
 
   useEffect(() => {
     setIsLoading(true);
-    tasksByRoomId(parseInt(companyId))
+    tasksByRoomId(parseInt(roomId))
       .then(({ data }) => {
         setTasks(data);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [companyId]);
+  }, [roomId]);
 
   return (
     <>
-      <NavButtons activeTab='rooms' />
+      <NavButtons activeTab='rooms' companyId={companyId} />
       <h1 className='text-3xl font-bold text-gray-800 mb-6'>Tasks List:</h1>
 
       {isLoading ? (

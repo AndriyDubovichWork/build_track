@@ -43,7 +43,7 @@ export default function RoomsPage() {
       ) : (
         <div className='space-y-4'>
           {rooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
+            <RoomCard key={room.id} room={room} companyId={companyId} />
           ))}
         </div>
       )}

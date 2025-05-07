@@ -2,11 +2,12 @@ import { Room } from '@/app/types';
 
 interface RoomCardProps {
   room: Room;
+  companyId: string;
 }
 
-export const RoomCard = ({ room }: RoomCardProps) => {
+export const RoomCard = ({ room, companyId }: RoomCardProps) => {
   return (
-    <a href={`/tasks?roomId=${room.id}`}>
+    <a href={`/tasks?companyId=${companyId}&roomId=${room.id}`}>
       <div className='bg-white p-6 rounded-xl shadow-md border border-gray-200'>
         <div className='flex justify-between items-center'>
           <h2 className='text-xl font-bold text-orange-500'>{room.name}</h2>

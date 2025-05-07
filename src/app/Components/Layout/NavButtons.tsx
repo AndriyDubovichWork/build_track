@@ -1,19 +1,35 @@
 // components/NavButtons.tsx
 
+import companyById from '@/app/APIRequests/companyById';
 import { TabType } from '@/app/types';
+import { useEffect, useState } from 'react';
 
 interface NavButtonsProps {
   activeTab: TabType;
+  companyId?: string;
 }
 
-export const NavButtons = ({ activeTab }: NavButtonsProps) => {
-  const tabs = [
-    { name: 'Main', path: '/', tab: 'main' as const },
-    { name: 'Companies', path: '/companies', tab: 'companies' as const },
-    { name: 'Tasks', path: '/tasks', tab: 'tasks' as const },
-    { name: 'Materials', path: '/materials', tab: 'materials' as const },
-  ];
-
+export const NavButtons = ({ activeTab, companyId }: NavButtonsProps) => {
+  const [tabs, setTabs] = useState([
+    { name: 'Main', path: '/', tab: 'main' },
+    { name: 'Companies', path: '/companies', tab: 'companies' },
+    // { name: 'Tasks', path: '/tasks', tab: 'tasks' as const },
+    // { name: 'Materials', path: '/materials', tab: 'materials' as const },
+  ]);
+  useEffect(() => {
+    if (companyId) {
+      companyById(companyId).then(({ data }) =>
+        setTabs((prevTabs) => [
+          ...prevTabs,
+          {
+            name: data.name + ' rooms',
+            path: `/rooms?companyId=${data.id}`,
+            tab: 'room',
+          },
+        ])
+      );
+    }
+  }, [companyId]);
   return (
     <div className='flex space-x-4 mb-8'>
       {tabs.map((tab) => (
